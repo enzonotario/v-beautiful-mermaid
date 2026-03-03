@@ -1,0 +1,80 @@
+{
+  "name": "v-beautiful-mermaid",
+  "version": "0.0.1",
+  "type": "module",
+  "description": "Vue 3 component and VitePress plugin for beautiful Mermaid diagrams",
+  "author": "Enzo Notario <hi@enzonotario.me>",
+  "license": "MIT",
+  "homepage": "https://v-beautiful-mermaid.vercel.app/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/enzonotario/v-beautiful-mermaid.git"
+  },
+  "keywords": [
+    "beautiful-mermaid",
+    "mermaid",
+    "vue",
+    "vitepress"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.mts",
+      "default": "./dist/index.mjs"
+    },
+    "./client": {
+      "types": "./dist/client.d.ts",
+      "default": "./dist/client.js"
+    },
+    "./style.css": "./dist/client.css"
+  },
+  "scripts": {
+    "build": "tsdown",
+    "demo:dev": "pnpm --filter demo-vue dev",
+    "demo:build": "pnpm --filter demo-vue build",
+    "docs:dev": "pnpm --filter docs dev",
+    "docs:build": "pnpm --filter docs build",
+    "docs:preview": "pnpm --filter docs preview",
+    "test": "vitest run",
+    "lint": "biome check src demo-vue docs *.ts *.js",
+    "lint:fix": "biome check --write src demo-vue docs *.ts *.js",
+    "format": "biome format --write src demo-vue docs *.ts *.js"
+  },
+  "dependencies": {
+    "@iconify/vue": "^5.0.0",
+    "beautiful-mermaid": "^1.1.2"
+  },
+  "peerDependencies": {
+    "vitepress": ">=1.0.0",
+    "vue": ">=3.0.0"
+  },
+  "peerDependenciesMeta": {
+    "vitepress": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@biomejs/biome": "1.9.4",
+    "@types/markdown-it": "^14.1.2",
+    "@types/node": "^22.13.5",
+    "@unocss/preset-attributify": "^66.6.2",
+    "@unocss/preset-icons": "^66.6.2",
+    "@unocss/preset-uno": "^66.6.2",
+    "@unocss/transformer-directives": "^66.6.2",
+    "@unocss/transformer-variant-group": "^66.6.2",
+    "@vitejs/plugin-vue": "^6.0.4",
+    "@vue/test-utils": "^2.4.6",
+    "happy-dom": "^20.7.0",
+    "markdown-it": "^14.1.1",
+    "tsdown": "0.21.0-beta.2",
+    "typescript": "^5.7.3",
+    "unocss": "^66.6.2",
+    "unplugin-vue": "^7.1.1",
+    "vite": "^6.2.0",
+    "vite-plugin-dts": "^4.5.4",
+    "vitepress": "^1.6.3",
+    "vitest": "^3.0.7",
+    "vue": "^3.5.29",
+    "vue-tsc": "^3.2.5"
+  },
+  "packageManager": "pnpm@10.29.2+sha512.bef43fa759d91fd2da4b319a5a0d13ef7a45bb985a3d7342058470f9d2051a3ba8674e629672654686ef9443ad13a82da2beb9eeb3e0221c87b8154fff9d74b8"
+}
