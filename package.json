@@ -1,6 +1,6 @@
 {
   "name": "v-beautiful-mermaid",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "type": "module",
   "description": "Vue 3 component and VitePress plugin for beautiful Mermaid diagrams",
   "author": "Enzo Notario <hi@enzonotario.me>",
