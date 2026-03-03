@@ -1,6 +1,6 @@
 {
   "name": "v-beautiful-mermaid",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "type": "module",
   "description": "Vue 3 component and VitePress plugin for beautiful Mermaid diagrams",
   "author": "Enzo Notario <hi@enzonotario.me>",
@@ -16,13 +16,20 @@
     "vue",
     "vitepress"
   ],
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
   "exports": {
     ".": {
       "types": "./dist/index.d.mts",
+      "import": "./dist/index.mjs",
       "default": "./dist/index.mjs"
     },
     "./client": {
       "types": "./dist/client.d.ts",
+      "import": "./dist/client.js",
       "default": "./dist/client.js"
     },
     "./style.css": "./dist/client.css"
