@@ -37,6 +37,51 @@ describe('vitepressBeautifulMermaid', () => {
     expect(result).toContain('<pre><code class="language-js">')
     expect(result).not.toContain('VBeautifulMermaid')
   })
+
+  it('should use custom languages when specified', () => {
+    const md = new MarkdownIt()
+    md.use(vitepressBeautifulMermaid, {
+      languages: {
+        'beautiful-mermaid': 'default',
+        'beautiful-mermaid-svg': 'svg',
+        'bm-ascii': 'ascii',
+      },
+    })
+
+    const svgResult = md.render('```beautiful-mermaid\ngraph TD\nA --> B\n```')
+    expect(svgResult).toContain('mode="svg"')
+    expect(svgResult).toContain('<VBeautifulMermaid')
+
+    const explicitSvgResult = md.render('```beautiful-mermaid-svg\ngraph TD\nA --> B\n```')
+    expect(explicitSvgResult).toContain('mode="svg"')
+
+    const asciiResult = md.render('```bm-ascii\ngraph TD\nA --> B\n```')
+    expect(asciiResult).toContain('mode="ascii"')
+  })
+
+  it('should not handle mermaid when custom languages override defaults', () => {
+    const md = new MarkdownIt()
+    md.use(vitepressBeautifulMermaid, {
+      languages: { 'beautiful-mermaid': 'svg' },
+    })
+
+    const result = md.render('```mermaid\ngraph TD\nA --> B\n```')
+    expect(result).not.toContain('VBeautifulMermaid')
+
+    const customResult = md.render('```beautiful-mermaid\ngraph TD\nA --> B\n```')
+    expect(customResult).toContain('VBeautifulMermaid')
+  })
+
+  it('custom language with defaultMode ascii should use ascii', () => {
+    const md = new MarkdownIt()
+    md.use(vitepressBeautifulMermaid, {
+      defaultMode: 'ascii',
+      languages: { 'bm': 'default' },
+    })
+
+    const result = md.render('```bm\ngraph TD\nA --> B\n```')
+    expect(result).toContain('mode="ascii"')
+  })
 })
 
 describe('VBeautifulMermaid', () => {

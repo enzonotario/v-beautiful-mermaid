@@ -8,9 +8,16 @@ const DEFAULT_DARK_THEME = 'zinc-dark'
 export type { AsciiRenderOptions, DiagramColors, RenderOptions, ThemeName } from 'beautiful-mermaid'
 export type RenderMode = 'svg' | 'ascii'
 export type ColorMode = 'auto' | 'light' | 'dark'
+export type LanguageMode = RenderMode | 'default'
 
 type LayoutOptions = Omit<RenderOptions, keyof DiagramColors>
 type AsciiLayoutOptions = Omit<AsciiRenderOptions, 'theme' | 'colorMode'>
+
+const DEFAULT_LANGUAGES: Record<string, LanguageMode> = {
+  'mermaid': 'default',
+  'mermaid-svg': 'svg',
+  'mermaid-ascii': 'ascii',
+}
 
 export interface PluginOptions {
   theme?: string
@@ -18,25 +25,24 @@ export interface PluginOptions {
   colorMode?: ColorMode
   lightTheme?: string
   darkTheme?: string
-  /** Layout, font, and rendering options passed to renderMermaidSVG at build time */
   renderOptions?: LayoutOptions
-  /** ASCII layout options passed to renderMermaidASCII at build time */
   asciiOptions?: AsciiLayoutOptions
+  languages?: Record<string, LanguageMode>
 }
 
 export function vitepressBeautifulMermaid(md: MarkdownIt, options: PluginOptions = {}) {
   const defaultRenderer = md.renderer.rules.fence?.bind(md.renderer.rules)
+  const langMap = options.languages ?? DEFAULT_LANGUAGES
 
   md.renderer.rules.fence = (tokens, idx, opts, env, self) => {
     const token = tokens[idx]
     const info = token.info ? token.info.trim() : ''
 
-    if (info === 'mermaid' || info === 'mermaid-ascii' || info === 'mermaid-svg') {
+    if (info in langMap) {
       const content = token.content.trim()
 
-      let mode: RenderMode = options.defaultMode || 'svg'
-      if (info === 'mermaid-ascii') mode = 'ascii'
-      if (info === 'mermaid-svg') mode = 'svg'
+      const langMode = langMap[info]
+      const mode: RenderMode = langMode === 'default' ? (options.defaultMode ?? 'svg') : langMode
 
       const encodedCode = Buffer.from(content).toString('base64')
 
