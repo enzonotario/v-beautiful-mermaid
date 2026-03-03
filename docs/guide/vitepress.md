@@ -117,6 +117,27 @@ installMermaid(app, {
 })
 ```
 
+### Custom Languages
+
+By default the plugin handles `` ```mermaid ``, `` ```mermaid-svg ``, and `` ```mermaid-ascii ``. Use `languages` to replace that set with your own identifiers — useful when another plugin already claims `` ```mermaid `` and you need a different trigger word.
+
+Each key is a fenced code language identifier; the value is the render mode:
+- `'svg'` — always render as SVG
+- `'ascii'` — always render as ASCII
+- `'default'` — use the `defaultMode` option (falls back to `'svg'`)
+
+```ts
+md.use(vitepressBeautifulMermaid, {
+  languages: {
+    'beautiful-mermaid':     'default',  // uses defaultMode
+    'beautiful-mermaid-svg': 'svg',
+    'bm-ascii':              'ascii',
+  },
+})
+```
+
+When `languages` is set, the built-in `mermaid` / `mermaid-svg` / `mermaid-ascii` identifiers are **not** registered, so any existing mermaid plugin can handle them without conflict.
+
 ## Markdown Usage
 
 ### Default
