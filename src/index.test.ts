@@ -76,7 +76,7 @@ describe('vitepressBeautifulMermaid', () => {
     const md = new MarkdownIt()
     md.use(vitepressBeautifulMermaid, {
       defaultMode: 'ascii',
-      languages: { 'bm': 'default' },
+      languages: { bm: 'default' },
     })
 
     const result = md.render('```bm\ngraph TD\nA --> B\n```')

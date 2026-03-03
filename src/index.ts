@@ -14,7 +14,7 @@ type LayoutOptions = Omit<RenderOptions, keyof DiagramColors>
 type AsciiLayoutOptions = Omit<AsciiRenderOptions, 'theme' | 'colorMode'>
 
 const DEFAULT_LANGUAGES: Record<string, LanguageMode> = {
-  'mermaid': 'default',
+  mermaid: 'default',
   'mermaid-svg': 'svg',
   'mermaid-ascii': 'ascii',
 }
