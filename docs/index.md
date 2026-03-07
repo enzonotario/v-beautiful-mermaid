@@ -25,6 +25,10 @@ const tab = ref('svg')
 </div>
 </div>
 
+<div class="text-center text-sm text-text-2 mb-6">
+  Powered by <a href="https://github.com/lukilabs/beautiful-mermaid" target="_blank" rel="noopener" class="text-brand-1 hover:underline">Beautiful Mermaid</a>
+</div>
+
 <div class="container mx-auto px-6">
 <div class="flex justify-center mb-4">
 <div class="flex gap-1 p-1 rounded-lg border border-divider bg-[var(--vp-c-bg-soft)]">
@@ -85,7 +89,6 @@ stateDiagram-v2
     <p class="m-0 text-sm text-text-2 leading-relaxed">Works perfectly in server-side rendering environments. No browser DOM required for the initial render.</p>
   </div>
 </div>
-
 
 <style>
 .gradient-name {
