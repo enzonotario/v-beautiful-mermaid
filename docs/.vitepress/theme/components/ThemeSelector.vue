@@ -1,6 +1,11 @@
 <script setup lang="ts">
 import { THEMES } from 'beautiful-mermaid'
-import { DEFAULT_DARK_THEME, DEFAULT_LIGHT_THEME, mermaidStore, resolvedTheme } from 'v-beautiful-mermaid/client'
+import {
+  DEFAULT_DARK_THEME,
+  DEFAULT_LIGHT_THEME,
+  mermaidStore,
+  resolvedTheme,
+} from 'v-beautiful-mermaid/client'
 import { computed, onMounted } from 'vue'
 
 const quickThemes = [
@@ -17,7 +22,9 @@ const formatName = (name: string) => {
 }
 
 const isAuto = computed(
-  () => mermaidStore.lightTheme === DEFAULT_LIGHT_THEME && mermaidStore.darkTheme === DEFAULT_DARK_THEME,
+  () =>
+    mermaidStore.lightTheme === DEFAULT_LIGHT_THEME &&
+    mermaidStore.darkTheme === DEFAULT_DARK_THEME,
 )
 
 function setAuto() {
