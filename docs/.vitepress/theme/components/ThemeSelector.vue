@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { THEMES } from 'beautiful-mermaid'
-import { mermaidStore, resolvedTheme } from 'v-beautiful-mermaid/client'
-import { onMounted } from 'vue'
+import { DEFAULT_DARK_THEME, DEFAULT_LIGHT_THEME, mermaidStore, resolvedTheme } from 'v-beautiful-mermaid/client'
+import { computed, onMounted } from 'vue'
 
 const quickThemes = [
   { label: 'Default', value: 'zinc-light', color: '#ffffff' },
@@ -14,6 +14,15 @@ const formatName = (name: string) => {
     .split('-')
     .map((s) => s.charAt(0).toUpperCase() + s.slice(1))
     .join(' ')
+}
+
+const isAuto = computed(
+  () => mermaidStore.lightTheme === DEFAULT_LIGHT_THEME && mermaidStore.darkTheme === DEFAULT_DARK_THEME,
+)
+
+function setAuto() {
+  mermaidStore.lightTheme = DEFAULT_LIGHT_THEME
+  mermaidStore.darkTheme = DEFAULT_DARK_THEME
 }
 
 function setTheme(theme: string) {
@@ -41,11 +50,16 @@ onMounted(() => {
 <template>
   <div class="mermaid-controls">
     <div class="theme-pills">
+      <button class="theme-pill" :class="{ active: isAuto }" @click="setAuto">
+        <svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        Auto
+      </button>
+
       <button
         v-for="pill in quickThemes"
         :key="pill.value"
         class="theme-pill"
-        :class="{ active: resolvedTheme === pill.value }"
+        :class="{ active: !isAuto && resolvedTheme === pill.value }"
         @click="setTheme(pill.value)"
       >
         <span class="theme-dot" :style="{ background: pill.color }"></span>
